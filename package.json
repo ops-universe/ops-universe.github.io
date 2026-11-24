@@ -1,22 +1,35 @@
 {
   "name": "ops-universe-website",
-  "version": "0.1.0",
   "private": true,
+  "version": "0.1.0",
   "type": "module",
-  "engines": {
-    "node": ">=22"
-  },
+  "description": "Organization website for ops-universe — open-source AI engineering, forward deployment and responsible automation.",
+  "engines": { "node": ">=20" },
   "scripts": {
     "dev": "vite",
-    "build": "vite build && vite build --ssr src/entry-server.jsx --outDir .ssr && node scripts/prerender.mjs",
-    "test": "node --test",
+    "snapshot": "node scripts/fetch-github.mjs",
+    "typecheck": "tsc -b",
+    "build": "tsc -b && vite build && node scripts/postbuild.mjs",
     "preview": "vite preview"
   },
   "dependencies": {
+    "@fontsource-variable/jetbrains-mono": "5.1.1",
+    "@fontsource-variable/space-grotesk": "5.1.1",
+    "framer-motion": "11.15.0",
+    "lucide-react": "0.468.0",
     "react": "18.3.1",
-    "react-dom": "18.3.1"
+    "react-dom": "18.3.1",
+    "react-router-dom": "6.28.0"
   },
   "devDependencies": {
-    "vite": "6.4.1"
+    "@types/node": "22.10.2",
+    "@types/react": "18.3.12",
+    "@types/react-dom": "18.3.1",
+    "@vitejs/plugin-react": "4.3.4",
+    "autoprefixer": "10.4.20",
+    "postcss": "8.4.49",
+    "tailwindcss": "3.4.17",
+    "typescript": "5.7.2",
+    "vite": "6.0.5"
   }
 }

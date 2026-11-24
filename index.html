@@ -1,1 +1,50 @@
-<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Ops Universe</title><!--seo--></head><body><div id="root"><!--app--></div><script type="module" src="/src/main.jsx"></script></body></html>
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Ops Universe — Engineer responsibly. Deploy confidently.</title>
+    <meta name="description" content="Open-source AI engineering, forward deployment and responsible automation — built on vendor independence, explicit authorization, reproducible evidence and secure defaults." />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#0b0e0a" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="canonical" href="https://ops-universe.github.io/" />
+
+    <!-- Open Graph / Twitter -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Ops Universe" />
+    <meta property="og:title" content="Ops Universe — Engineer responsibly. Deploy confidently." />
+    <meta property="og:description" content="Open-source AI engineering, forward deployment and responsible automation." />
+    <meta property="og:url" content="https://ops-universe.github.io/" />
+    <meta property="og:image" content="https://ops-universe.github.io/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Ops Universe — Engineer responsibly. Deploy confidently." />
+    <meta name="twitter:description" content="Open-source AI engineering, forward deployment and responsible automation." />
+    <meta name="twitter:image" content="https://ops-universe.github.io/og-image.png" />
+
+    <script type="application/ld+json">
+      {"@context":"https://schema.org","@type":"Organization","name":"Ops Universe","url":"https://ops-universe.github.io/","logo":"https://avatars.githubusercontent.com/u/360763637?v=4","sameAs":["https://github.com/ops-universe"]}
+    </script>
+
+    <!-- Apply the saved theme before first paint to avoid a flash. -->
+    <script>
+      (function () {
+        try {
+          var p = localStorage.getItem('ou-theme');
+          var t = p === 'light' || p === 'dark' ? p : matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+          document.documentElement.dataset.theme = t;
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <noscript>
+      <p style="padding:2rem;font-family:system-ui">Ops Universe needs JavaScript for this site. Browse the code directly at <a href="https://github.com/ops-universe">github.com/ops-universe</a>.</p>
+    </noscript>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
