@@ -354,3 +354,30 @@
 
 .project-identity { border-top: 3px solid var(--project-dark-accent); }
 :root[data-theme='light'] .project-identity { border-top-color: var(--project-light-accent); }
+
+/* Brand logo — colours come from the logo artwork, tuned per light/dark for contrast on every palette. */
+:root {
+  --brand-from: #22d3ee;
+  --brand-via: #60a5fa;
+  --brand-to: #a78bfa;
+}
+:root[data-theme='light'] {
+  --brand-from: #0891b2;
+  --brand-via: #2563eb;
+  --brand-to: #7c3aed;
+}
+.brand-gradient-text {
+  background-image: linear-gradient(90deg, var(--brand-from), var(--brand-via) 50%, var(--brand-to));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.brand-lockup-light {
+  display: none;
+}
+:root[data-theme='light'] .brand-lockup-light {
+  display: block;
+}
+:root[data-theme='light'] .brand-lockup-dark {
+  display: none;
+}

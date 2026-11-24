@@ -1,7 +1,7 @@
 import { Coffee, Github, Heart, ShieldAlert } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { nav, site } from '@/lib/site';
-import { Logo } from './Logo';
+import { BrandLockup } from './Logo';
 
 const community = [
   { label: 'Contributing', href: site.links.contributing },
@@ -16,7 +16,7 @@ export function Footer() {
     <footer className="relative mt-24 border-t border-line/70 bg-surface/40">
       <div className="container grid gap-12 py-14 md:grid-cols-12">
         <div className="md:col-span-5">
-          <Logo />
+          <BrandLockup className="w-56 -ml-2" />
           <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted">{site.description}</p>
           <p className="mt-5 inline-flex items-center gap-2 font-mono text-xs text-muted">
             <span className="relative flex h-2 w-2">
