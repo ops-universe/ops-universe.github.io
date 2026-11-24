@@ -49,6 +49,8 @@ export function ProjectModal({ project, onClose }: { project: Project | null; on
 
   // Portal to <body>: the animated route wrapper uses transforms, which would
   // otherwise trap this fixed-position overlay inside <main>.
+  // Nothing to portal into during build-time prerendering.
+  if (typeof document === 'undefined') return null;
   return createPortal(
     <AnimatePresence>
       {project && (

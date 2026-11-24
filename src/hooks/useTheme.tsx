@@ -14,6 +14,7 @@ const STORAGE_KEY = 'ou-theme';
 const ThemeContext = createContext<ThemeContextValue | null>(null);
 
 function readPreference(): ThemePreference {
+  if (typeof window === 'undefined') return 'system';
   try {
     const v = localStorage.getItem(STORAGE_KEY);
     return v === 'dark' || v === 'light' || v === 'system' ? v : 'system';
@@ -23,7 +24,7 @@ function readPreference(): ThemePreference {
 }
 
 const systemTheme = (): Resolved =>
-  window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+  typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [preference, setPref] = useState<ThemePreference>(readPreference);

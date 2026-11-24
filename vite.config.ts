@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 
 // BASE_PATH lets the same build run at a root domain (ops-universe.github.io → "/")
 // or under a project subpath (e.g. "/website/") on GitHub Pages.
-export default defineConfig(({ mode }) => {
+export default defineConfig(({ mode, isSsrBuild }) => {
   const env = loadEnv(mode, process.cwd(), '');
   return {
     base: env.BASE_PATH || '/',
@@ -14,12 +14,15 @@ export default defineConfig(({ mode }) => {
       target: 'es2020',
       sourcemap: false,
       rollupOptions: {
-        output: {
-          manualChunks: {
-            react: ['react', 'react-dom', 'react-router-dom'],
-            motion: ['framer-motion'],
-          },
-        },
+        // Vendor chunks for the browser build only; the prerender (SSR) build keeps dependencies external.
+        output: isSsrBuild
+          ? {}
+          : {
+              manualChunks: {
+                react: ['react', 'react-dom', 'react-router-dom'],
+                motion: ['framer-motion'],
+              },
+            },
       },
     },
   };

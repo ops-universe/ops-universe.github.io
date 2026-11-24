@@ -42,7 +42,8 @@
   </head>
   <body>
     <noscript>
-      <p style="padding:2rem;font-family:system-ui">Ops Universe needs JavaScript for this site. Browse the code directly at <a href="https://github.com/ops-universe">github.com/ops-universe</a>.</p>
+      <!-- Pages are prerendered, so content is readable without JavaScript. Show elements that would otherwise wait for a scroll animation. -->
+      <style>[style*="opacity:0"]{opacity:1!important;transform:none!important;filter:none!important}</style>
     </noscript>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>

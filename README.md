@@ -23,7 +23,7 @@ npm run dev          # http://localhost:5173
 |---|---|
 | `npm run dev` | Vite dev server with HMR |
 | `npm run typecheck` | `tsc -b`, strict mode |
-| `npm run build` | Typecheck → production build → copy `index.html` to `404.html` for SPA deep links |
+| `npm run build` | Typecheck → client build → server (SSR) build → prerender every route to static HTML |
 | `npm run preview` | Serve `dist/` locally |
 | `npm run snapshot` | Refresh `src/data/github-snapshot.json` from the GitHub API (Node only) |
 
@@ -76,9 +76,9 @@ website/
 │   ├── robots.txt   sitemap.xml
 ├── scripts/
 │   ├── fetch-github.mjs          # build-time snapshot (server-side token)
-│   └── postbuild.mjs             # dist/index.html → dist/404.html
+│   └── prerender.mjs             # renders each route → dist/<route>.html + 404.html
 └── src/
-    ├── main.tsx  App.tsx  vite-env.d.ts
+    ├── main.tsx  App.tsx  routes.tsx  entry-server.tsx  vite-env.d.ts
     ├── layouts/RootLayout.tsx    # skip link, header, page transitions, footer, ⌘K
     ├── pages/                    # Home, Projects, About, Blog, BlogPost, Contact, NotFound
     ├── components/
@@ -95,7 +95,20 @@ website/
 
 ## Deployment
 
-The build is a static SPA in `dist/`. `BASE_PATH` controls the URL prefix.
+The build is static HTML in `dist/`. `BASE_PATH` controls the URL prefix.
+
+### Prerendering
+
+`npm run build` renders every public route with React on the server (`src/entry-server.tsx`, using the routes shared with the browser in `src/routes.tsx`) and writes the result into the client build:
+
+| Route | File | Served with |
+|---|---|---|
+| `/` | `dist/index.html` | 200 |
+| `/projects`, `/about`, `/blog`, `/contact` | `dist/projects.html`, … | 200 |
+| `/blog/<slug>` | `dist/blog/<slug>.html` | 200 |
+| anything else | `dist/404.html` (not-found page) | 404 |
+
+Each file carries that page's title, description, robots, canonical and Open Graph tags, plus its full content, so crawlers, link previews and readers without JavaScript all get the real page. Project data in the prerendered HTML comes from the GitHub snapshot. In the browser the app then renders fresh and loads live data as usual. New routes or posts are picked up automatically through `prerenderPaths` in `entry-server.tsx`; code that runs during render must not touch `window` or `document` unguarded.
 
 ### GitHub Pages (recommended — `ops-universe.github.io`)
 
@@ -103,7 +116,7 @@ The build is a static SPA in `dist/`. `BASE_PATH` controls the URL prefix.
 2. In the repository, go to **Settings → Pages → Source: GitHub Actions**.
 3. Push to `main`. `.github/workflows/deploy.yml` refreshes the snapshot, builds with `BASE_PATH=/`, and deploys. It also runs daily to keep the snapshot fresh.
 
-For a project page (`https://ops-universe.github.io/<repo>/`), set `BASE_PATH=/<repo>/` in the workflow. `dist/404.html` makes deep links such as `/projects` and `/blog/<slug>` work.
+For a project page (`https://ops-universe.github.io/<repo>/`), set `BASE_PATH=/<repo>/` in the workflow.
 
 ### Vercel
 
@@ -161,7 +174,6 @@ The hero canvas pauses when off-screen or when the tab is hidden, and draws a si
 
 ## Future enhancements
 
-- **Prerendering / SSG** (e.g. `vite-react-ssg`) for per-route HTML, matching the plan in `ops-standards`.
 - **MDX blog** with front matter, real authors and dates, an RSS feed, and syntax highlighting (Shiki).
 - **Server-side GitHub proxy** (Cloudflare Worker) with a token and edge caching, for live data without rate limits.
 - **Shared components**: switch to `@ops-universe/ui` once ops-ui is published and pinned.
