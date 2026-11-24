@@ -220,7 +220,7 @@ node src/cli.mjs validate ../evalOps`,
           },
           {
             type: 'callout',
-            text: 'ops-cli is in review as an open pull request and is not published to npm.',
+            text: 'ops-cli runs locally from its repository; check its README for how it is distributed.',
           },
         ],
       },

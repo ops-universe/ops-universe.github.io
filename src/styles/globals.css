@@ -3,55 +3,155 @@
 @tailwind utilities;
 
 /*
- * Design tokens. Values are RGB channels so Tailwind can apply alpha
- * (e.g. bg-accent/10). Dark is the default; [data-theme="light"] overrides.
- * The organization uses its own indigo identity from ops-ui; signal colors remain semantic status accents.
+ * Design tokens. Values are RGB channels so Tailwind can apply alpha (bg-accent/10).
+ * Two axes: data-palette (aurora | graphite | forest) × data-theme (light | dark).
+ *  - Aurora (default): lavender, deep indigo and an iridescent violet → pink → cyan glow.
+ *  - Graphite: monochrome line-art, for readers who prefer no colour.
+ *  - Forest: the original ops-standards brand tokens (#D5ED91 / #365C2C).
+ * --primary is the solid button colour; --glow-1..3 drive the iridescent gradients.
  */
 @layer base {
+  /* Aurora · dark (also the fallback before the theme script runs) */
   :root {
-    --bg: 23 26 45;
-    --surface: 34 38 61;
-    --elevated: 43 48 73; /* #1c231b */
-    --line: 70 75 104;
-    --ink: 241 242 255;
-    --muted: 191 197 224;
-    --accent: 183 181 255;
-    --accent-ink: 27 25 64;
-    --signal: 125 226 211; /* #7de2d3 */
-    --warn: 242 200 109;
-    --danger: 255 140 122;
-    --grid: 183 181 255;
-    --grid-alpha: 0.05;
+    --bg: 9 8 26; /* #09081A */
+    --surface: 18 16 42; /* #12102A */
+    --elevated: 28 25 60; /* #1C193C */
+    --line: 48 44 96; /* #302C60 */
+    --ink: 238 236 255; /* #EEECFF */
+    --muted: 166 162 208; /* #A6A2D0 */
+    --accent: 172 146 255; /* #AC92FF */
+    --accent-ink: 16 12 42;
+    --primary: 233 228 255; /* #E9E4FF */
+    --primary-ink: 18 16 42;
+    --signal: 125 211 252; /* #7DD3FC */
+    --glow-1: 140 110 255; /* violet */
+    --glow-2: 244 150 214; /* pink */
+    --glow-3: 110 200 255; /* cyan */
+    --warn: 250 204 120;
+    --danger: 255 128 150;
+    --grid: 172 146 255;
+    --grid-alpha: 0.06;
     color-scheme: dark;
   }
 
+  /* Aurora · light — the palette of the reference AI landing page */
   :root[data-theme='light'] {
-    --bg: 246 247 255;
+    --bg: 244 242 253; /* #F4F2FD */
     --surface: 255 255 255;
-    --elevated: 234 237 250;
-    --line: 216 220 239;
-    --ink: 32 36 59;
-    --muted: 82 89 116;
-    --accent: 67 56 160;
+    --elevated: 236 233 252; /* #ECE9FC */
+    --line: 222 217 246; /* #DED9F6 */
+    --ink: 31 29 90; /* #1F1D5A */
+    --muted: 96 94 140; /* #605E8C */
+    --accent: 116 84 240; /* #7454F0 */
     --accent-ink: 255 255 255;
-    --signal: 24 112 103;
-    --warn: 150 98 10;
-    --danger: 178 52 36;
-    --grid: 67 56 160;
+    --primary: 38 36 110; /* #26246E */
+    --primary-ink: 255 255 255;
+    --signal: 14 140 214; /* #0E8CD6 */
+    --glow-1: 150 120 255;
+    --glow-2: 246 160 220;
+    --glow-3: 120 205 255;
+    --warn: 168 104 0;
+    --danger: 205 45 85;
+    --grid: 116 84 240;
     --grid-alpha: 0.07;
     color-scheme: light;
+  }
+
+  /* Graphite · dark */
+  :root[data-palette='graphite'] {
+    --bg: 10 10 11;
+    --surface: 20 20 22;
+    --elevated: 30 30 33;
+    --line: 50 50 55;
+    --ink: 244 244 245;
+    --muted: 161 161 170;
+    --accent: 228 228 231;
+    --accent-ink: 10 10 11;
+    --primary: 244 244 245;
+    --primary-ink: 10 10 11;
+    --signal: 165 180 200;
+    --glow-1: 200 200 210;
+    --glow-2: 140 140 150;
+    --glow-3: 235 235 240;
+    --grid: 244 244 245;
+    --grid-alpha: 0.05;
+  }
+  :root[data-palette='graphite'][data-theme='light'] {
+    --bg: 250 250 250;
+    --surface: 255 255 255;
+    --elevated: 243 243 244;
+    --line: 226 226 229;
+    --ink: 17 17 19;
+    --muted: 92 92 100;
+    --accent: 24 24 27;
+    --accent-ink: 250 250 250;
+    --primary: 17 17 19;
+    --primary-ink: 250 250 250;
+    --signal: 70 90 120;
+    --glow-1: 120 120 130;
+    --glow-2: 190 190 198;
+    --glow-3: 60 60 66;
+    --grid: 17 17 19;
+    --grid-alpha: 0.06;
+  }
+
+  /* Forest · dark — ops-standards brand tokens */
+  :root[data-palette='forest'] {
+    --bg: 11 14 10;
+    --surface: 20 25 19;
+    --elevated: 28 35 27;
+    --line: 49 59 46;
+    --ink: 245 242 223;
+    --muted: 176 185 165;
+    --accent: 213 237 145; /* #D5ED91 */
+    --accent-ink: 22 29 14;
+    --primary: 213 237 145;
+    --primary-ink: 22 29 14;
+    --signal: 125 226 211;
+    --glow-1: 213 237 145;
+    --glow-2: 125 226 211;
+    --glow-3: 242 200 109;
+    --warn: 242 200 109;
+    --danger: 255 140 122;
+    --grid: 213 237 145;
+    --grid-alpha: 0.05;
+  }
+  :root[data-palette='forest'][data-theme='light'] {
+    --bg: 246 244 233; /* #F6F4E9 */
+    --surface: 255 253 245;
+    --elevated: 239 237 223;
+    --line: 215 219 204;
+    --ink: 34 41 30;
+    --muted: 80 89 75;
+    --accent: 54 92 44; /* #365C2C */
+    --accent-ink: 246 244 233;
+    --primary: 54 92 44;
+    --primary-ink: 246 244 233;
+    --signal: 24 112 103;
+    --glow-1: 120 170 90;
+    --glow-2: 60 160 150;
+    --glow-3: 210 170 80;
+    --warn: 150 98 10;
+    --danger: 178 52 36;
+    --grid: 54 92 44;
+    --grid-alpha: 0.07;
   }
 
   html {
     -webkit-text-size-adjust: 100%;
     scroll-behavior: smooth;
-    scroll-padding-top: 5.5rem;
+    scroll-padding-top: 6.5rem;
   }
 
   body {
     @apply bg-bg font-sans text-ink antialiased;
-    font-feature-settings: 'ss01', 'ss02';
-    overflow-x: hidden;
+    /* Soft aurora wash behind every page; it follows the active palette. */
+    background-image:
+      radial-gradient(60rem 40rem at 85% -10%, rgb(var(--glow-1) / 0.16), transparent 60%),
+      radial-gradient(50rem 36rem at -10% 10%, rgb(var(--glow-3) / 0.12), transparent 60%),
+      radial-gradient(40rem 30rem at 60% 40%, rgb(var(--glow-2) / 0.07), transparent 70%);
+    background-repeat: no-repeat;
+        overflow-x: hidden;
     text-rendering: optimizeLegibility;
   }
 
@@ -120,10 +220,59 @@
   }
 
   .text-gradient {
-    background: linear-gradient(100deg, rgb(var(--ink)) 20%, rgb(var(--accent)) 55%, rgb(var(--signal)) 95%);
+    background: linear-gradient(100deg, rgb(var(--accent)) 10%, rgb(var(--glow-2)) 60%, rgb(var(--glow-3)) 110%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
+  }
+
+  /* Mint → lavender sweep used for statement words. */
+  .text-iridescent {
+    background: linear-gradient(95deg, rgb(var(--glow-3)) 0%, rgb(var(--glow-1)) 55%, rgb(var(--glow-2)) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Serif italic accent for headline words. */
+  .font-accent {
+    font-family: 'Instrument Serif', ui-serif, Georgia, serif;
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+  }
+
+  /* Frosted glass card used by the header, orbit cards and popovers. */
+  .glass-card {
+    @apply border border-white/40 bg-surface/55 shadow-float backdrop-blur-2xl backdrop-saturate-150;
+  }
+  :root:not([data-theme='light']) .glass-card {
+    @apply border-white/10;
+  }
+
+  /* Deep violet stage for 3D scenes. Stays dark in every mode; tinted by the palette's glows. */
+  .deep-panel {
+    color: rgb(238 236 255);
+    background:
+      radial-gradient(70% 90% at 12% 105%, rgb(var(--glow-1) / 0.6), transparent 60%),
+      radial-gradient(45% 55% at 92% 8%, rgb(var(--glow-2) / 0.28), transparent 70%),
+      radial-gradient(40% 50% at 70% 80%, rgb(var(--glow-3) / 0.18), transparent 70%),
+      linear-gradient(160deg, rgb(13 11 32), rgb(20 16 52) 55%, rgb(10 9 26));
+  }
+
+  /* Isometric drafting grid (30° / 150° hairlines). */
+  .iso-grid {
+    background-image:
+      repeating-linear-gradient(30deg, rgb(var(--grid) / var(--grid-alpha)) 0 1px, transparent 1px 34px),
+      repeating-linear-gradient(150deg, rgb(var(--grid) / var(--grid-alpha)) 0 1px, transparent 1px 34px);
+  }
+
+  /* Crosshair registration marks (Opera-style). */
+  .crosshair {
+    @apply pointer-events-none absolute h-3 w-3 text-muted/50;
+    background:
+      linear-gradient(currentColor, currentColor) center / 100% 1px no-repeat,
+      linear-gradient(currentColor, currentColor) center / 1px 100% no-repeat;
   }
 
   .skeleton {
@@ -144,7 +293,7 @@
     z-index: -1;
     border-radius: inherit;
     padding: 1px;
-    background: conic-gradient(from var(--angle, 0deg), transparent 0deg, rgb(var(--accent) / 0.9) 60deg, rgb(var(--signal) / 0.7) 120deg, transparent 180deg);
+    background: conic-gradient(from var(--angle, 0deg), transparent 0deg, rgb(var(--glow-1) / 0.95) 60deg, rgb(var(--glow-2) / 0.8) 120deg, rgb(var(--glow-3) / 0.7) 160deg, transparent 180deg);
     -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;

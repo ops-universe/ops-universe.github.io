@@ -287,7 +287,7 @@ function ContactForm() {
 
 const channels = [
   { icon: Bug, title: 'Issues', body: 'Reproducible bugs with versions and sanitized evidence.', href: site.links.newIssue, cta: 'Open an issue' },
-  { icon: GitPullRequest, title: 'Pull requests', body: 'Review the open initial-implementation PRs for ops-cli, ops-ui and the website.', href: `${site.links.github}/ops-cli/pull/1`, cta: 'Review ops-cli #1' },
+  { icon: GitPullRequest, title: 'Pull requests', body: 'Focused, tested changes to any repository — standards, CLI, UI kit or this website.', href: `${site.links.github}/ops-cli/pulls`, cta: 'Browse pull requests' },
   { icon: MessagesSquare, title: 'Discussions', body: 'Questions and ideas, on repositories where Discussions are enabled. Not enabled yet.', href: site.links.support, cta: 'Read support policy' },
   { icon: ShieldAlert, title: 'Security', body: 'Report vulnerabilities privately — never in a public issue.', href: site.links.security, cta: 'Security policy' },
 ];

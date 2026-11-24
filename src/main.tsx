@@ -1,4 +1,5 @@
-import '@fontsource-variable/space-grotesk';
+import '@fontsource-variable/manrope';
+import '@fontsource/instrument-serif/400-italic.css';
 import '@fontsource-variable/jetbrains-mono';
 import './styles/globals.css';
 import { MotionConfig } from 'framer-motion';

@@ -81,16 +81,16 @@ export const timeline: Milestone[] = [
     state: 'done',
   },
   {
-    label: 'In review',
+    label: 'Merged',
     title: 'CLI, UI kit and website',
-    body: 'Initial implementations of ops-cli, ops-ui and ops-universe.github.io are open as pull requests.',
-    state: 'active',
+    body: 'Initial implementations of ops-cli, ops-ui and ops-universe.github.io merged to main; the website deploys to GitHub Pages.',
+    state: 'done',
   },
   {
-    label: 'Next',
+    label: 'Now',
     title: 'Hardening and publishing',
-    body: 'Committed lockfiles, browser and accessibility tests, Pages deployment, template pinning and dry-run manifests.',
-    state: 'next',
+    body: 'Browser and accessibility tests, template pinning and package publishing, following each repository\'s ROADMAP.',
+    state: 'active',
   },
   {
     label: 'Planned',

@@ -3,7 +3,7 @@
  *
  * Live GitHub fields (stars, forks, language, dates) come from src/lib/github.ts.
  * The fields below are editorial and are sourced from each repository's README,
- * ROADMAP and open pull requests as of the snapshot date. GitHub descriptions and
+ * ROADMAP files as of the snapshot date. GitHub descriptions and
  * topics are not set on these repositories yet, so `summary` and `tags` fill that gap.
  */
 export type ProjectStatus = 'Foundation' | 'In review' | 'Planned';
@@ -109,16 +109,16 @@ export const projects: ProjectMeta[] = [
     status: 'Foundation',
     category: 'Website',
     summary:
-      'Official ecosystem directory with React Router, project discovery, sitemap, robots and GitHub Pages deployment through Actions.',
-    tags: ['website', 'prerender', 'github-pages', 'seo'],
-    stack: ['React', 'Vite', 'GitHub Pages'],
+      'This website: the organization home and project directory, with live GitHub data, prerendered routes and GitHub Pages deployment through Actions.',
+    tags: ['website', 'prerender', 'github-pages', 'motion'],
+    stack: ['React', 'Vite', 'TypeScript', 'Tailwind CSS', 'Framer Motion'],
     highlights: [
-      'React Router pages, project details and insights',
-      'Curated project states and GitHub repository metadata',
-      'Deploys on main only after verification',
+      'Prerenders every route to static HTML with per-page metadata',
+      'Live GitHub API data with a build-time snapshot fallback',
+      'Aurora, Graphite and Forest palettes in light and dark',
     ],
-    contribute: 'Contribute through focused PRs.',
-    source: 'Current website main branch',
+    contribute: 'Open an issue or a focused pull request on the repository.',
+    source: 'README.md on main',
   },
   {
     name: '.github',

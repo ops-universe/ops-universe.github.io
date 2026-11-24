@@ -4,7 +4,6 @@ import { useLocation, useOutlet } from 'react-router-dom';
 import { CommandPalette } from '@/components/CommandPalette';
 import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
-import { ScrollProgress } from '@/components/ScrollProgress';
 
 /** Shell: skip link, header, animated route outlet, footer and global search. */
 export function RootLayout() {
@@ -37,7 +36,6 @@ export function RootLayout() {
       <a href="#main" className="sr-only z-[90] rounded-lg bg-accent px-4 py-2 text-accent-ink focus:not-sr-only focus:fixed focus:left-4 focus:top-4">
         Skip to content
       </a>
-      <ScrollProgress />
       <Header onSearch={openSearch} />
       <AnimatePresence mode="wait" initial={false}>
         <motion.main

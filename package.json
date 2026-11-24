@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.1.0",
   "type": "module",
-  "description": "Organization website for ops-universe \u2014 open-source AI engineering, forward deployment and responsible automation.",
+  "description": "Organization website for ops-universe — open-source AI engineering, forward deployment and responsible automation.",
   "engines": {
     "node": ">=20"
   },
@@ -16,7 +16,8 @@
   },
   "dependencies": {
     "@fontsource-variable/jetbrains-mono": "5.1.1",
-    "@fontsource-variable/space-grotesk": "5.1.1",
+    "@fontsource-variable/manrope": "5.2.8",
+    "@fontsource/instrument-serif": "5.2.8",
     "framer-motion": "11.15.0",
     "lucide-react": "0.468.0",
     "react": "18.3.1",

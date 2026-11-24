@@ -7,7 +7,7 @@ type Line = { kind: 'cmd' | 'out' | 'ok' | 'warn' | 'deny' | 'gap'; text: string
 /**
  * Commands and output taken from the repositories' READMEs:
  * ops-template `npm run demo` prints exactly these three decisions.
- * ops-cli commands are from its README on the open PR; lines starting with "#"
+ * ops-cli commands are from its README; lines starting with "#"
  * are annotations paraphrasing that README, not captured CLI output.
  */
 const SCRIPT: Line[] = [

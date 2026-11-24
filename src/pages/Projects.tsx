@@ -142,7 +142,7 @@ export function Projects() {
     <div className="container pb-10 pt-32 sm:pt-36">
       <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
         <SectionHeading as="h1" eyebrow="Projects" title="Every repository, in one place.">
-          Live repository data from GitHub, joined with curated summaries from each README and open pull request. Planned projects are listed so you can see
+          Live repository data from GitHub, joined with curated summaries from each README. Planned projects are listed so you can see
           where things are heading.
         </SectionHeading>
         <Reveal>

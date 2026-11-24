@@ -8,9 +8,9 @@ type Variant = 'primary' | 'secondary' | 'ghost';
 
 const styles: Record<Variant, string> = {
   primary:
-    'bg-accent text-accent-ink hover:shadow-glow active:brightness-95 border border-accent',
+    'bg-primary text-primary-ink border border-primary shadow-float hover:-translate-y-0.5 hover:shadow-glow active:brightness-95',
   secondary:
-    'border border-line bg-surface/70 text-ink hover:border-accent/60 hover:bg-elevated active:bg-surface backdrop-blur',
+    'border border-line bg-surface/70 text-ink hover:border-accent/60 hover:bg-surface hover:-translate-y-0.5 active:bg-surface backdrop-blur',
   ghost: 'text-muted hover:text-ink hover:bg-elevated/70 active:bg-elevated',
 };
 
@@ -27,7 +27,7 @@ interface Props {
 }
 
 const base =
-  'group relative inline-flex min-h-11 select-none items-center justify-center gap-2 rounded-xl px-5 text-sm font-medium transition-[background,box-shadow,border-color,color,filter] duration-200 disabled:pointer-events-none disabled:opacity-50';
+  'group relative inline-flex min-h-11 select-none items-center justify-center gap-2 rounded-full px-6 text-sm font-semibold transition-[background,box-shadow,border-color,color,filter,transform] duration-300 disabled:pointer-events-none disabled:opacity-50';
 
 /** Button / internal link / external link with optional magnetic pull (desktop only). */
 export function Button({ to, href, onClick, type = 'button', variant = 'primary', magnetic = false, className, children, disabled }: Props) {

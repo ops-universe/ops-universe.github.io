@@ -8,7 +8,7 @@ The website for [github.com/ops-universe](https://github.com/ops-universe): open
 
 ## Stack
 
-React 18 · TypeScript · Vite 6 · React Router 6 · Tailwind CSS 3 · Framer Motion 11 · Lucide icons · self-hosted Space Grotesk + JetBrains Mono (Fontsource)
+React 18 · TypeScript · Vite 6 · React Router 6 · Tailwind CSS 3 · Framer Motion 11 · Lucide icons · self-hosted Manrope, Instrument Serif and JetBrains Mono (Fontsource)
 
 ## Quick start
 
@@ -54,7 +54,7 @@ GITHUB_TOKEN=$(gh auth token) npm run snapshot
 |---|---|---|
 | **Live / snapshot** GitHub data | `lib/github.ts`, `data/github-snapshot.json` | Repo count, stars, forks, languages, push dates, README, contributors |
 | **Curated** from repository files | `data/projects.ts`, `data/content.ts`, `lib/site.ts` | Summaries, status, roadmap, principles, funding links. Each entry names its source file. |
-| **Sample**, labelled in the UI | `data/posts.ts`, `components/TelemetryPanel.tsx` | "Example article" posts (no author or date claimed); "Simulated" telemetry (synthetic random walk) |
+| **Sample**, labelled in the UI | `data/posts.ts` | "Example article" posts (no author or date claimed) |
 
 Once maintainers set GitHub descriptions and topics, they automatically override the curated copy (`projectSummary` and `projectTags` in `lib/projects.ts`).
 
@@ -72,7 +72,7 @@ website/
 ├── vite.config.ts                # @ alias, BASE_PATH, vendor chunks
 ├── public/
 │   ├── favicon.svg  apple-touch-icon.png
-│   ├── og-image.svg og-image.png  # 1200×630
+│   ├── og-image.png              # 1200×630, Aurora palette
 │   ├── robots.txt   sitemap.xml
 ├── scripts/
 │   ├── fetch-github.mjs          # build-time snapshot (server-side token)
@@ -82,15 +82,16 @@ website/
     ├── layouts/RootLayout.tsx    # skip link, header, page transitions, footer, ⌘K
     ├── pages/                    # Home, Projects, About, Blog, BlogPost, Contact, NotFound
     ├── components/
-    │   ├── Header.tsx  Footer.tsx  ThemeToggle.tsx  ScrollProgress.tsx  CommandPalette.tsx
+    │   ├── Header.tsx  Footer.tsx  ThemeToggle.tsx  CommandPalette.tsx
     │   ├── Button.tsx  Reveal.tsx  SectionHeading.tsx  Badges.tsx  Logo.tsx
-    │   ├── NetworkCanvas.tsx  HeroTerminal.tsx  TelemetryPanel.tsx  Marquee.tsx  StatCounter.tsx
-    │   └── ProjectCard.tsx  ProjectModal.tsx
-    ├── hooks/                    # useTheme, useOrgData, useAsync, useDocumentMeta,
-    │                             # useMagnetic, useCountUp, useMediaQuery
+    │   ├── HeroTerminal.tsx  Marquee.tsx  StatCounter.tsx  ProjectCard.tsx  ProjectModal.tsx
+    │   └── motion/                   # IridescentOrb, OrbitCards, ScrollStatement, GlassCubes,
+    │                                 # IsometricStack, HorizontalGallery, PhysicsDrop
+    ├── hooks/                    # useTheme (mode + palette), useOrgData, useAsync, useDocumentMeta,
+    │                             # useMagnetic, useCountUp, useMediaQuery, useCanvasLoop
     ├── lib/                      # github, projects, markdown (safe renderer), format, site, cn
     ├── data/                     # projects, content, posts, github-snapshot.json
-    └── styles/globals.css        # design tokens (dark + light), components, prose, reduced motion
+    └── styles/globals.css        # palette tokens (3 palettes × light/dark), components, prose, reduced motion
 ```
 
 ## Deployment
@@ -134,16 +135,35 @@ On any host, set `VITE_SITE_URL` to the final origin so canonical and Open Graph
 
 ## Design rationale
 
-**Visual direction.** The palette extends the organization's own tokens from [`ops-standards/design.md`](https://github.com/ops-universe/ops-standards/blob/main/design.md): charcoal-green surfaces with a lime accent (`#D5ED91`) in dark mode, and cream with forest green (`#365C2C`) in light mode. Both modes use the official values. Dark mode deepens the base to near-black (`#0b0e0a`) and adds one cool "signal" teal, used only for telemetry and live status. This avoids the generic purple gradient while staying on-brand. Typography pairs Space Grotesk (display and UI) with JetBrains Mono (code, labels, data), and terminal details carry the infrastructure feel. Every color is a CSS variable in RGB channels, so Tailwind alpha utilities (`bg-accent/10`) work in both themes.
+**Visual direction.** The look takes its cues from six reference shots: the iridescent AI landing page (palette and hero), Opera's scroll story (huge statement type, crosshair marks, horizontal poster scroll), a Web3 hero (glassy 3D cubes with neon edges), an isometric security illustration (line-art exploded stack), Dezmo (glass cards orbiting a centre, pill navigation, rotating badge) and Tastimi (playful objects that fall and pile up).
 
-**Motion system.** One easing curve (`[0.16, 1, 0.3, 1]`) is used throughout. Motion comes in layers:
+**Themes.** Two independent choices, both saved in `localStorage` and applied before first paint:
 
-- *Page:* route transitions with a blur and lift.
-- *Section:* `Reveal` and `Stagger` play once when scrolled into view.
-- *Component:* a hover spotlight, a conic glow border and a 3D tilt on cards; animated counters; the marquee.
-- *Micro:* tap scale, a nav underline driven by `layoutId`, the icon morph in the theme toggle, and field errors that expand into view.
+| Palette | Light | Dark |
+|---|---|---|
+| **Aurora** (default) | Lavender `#F4F2FD`, deep indigo `#1F1D5A`, violet `#7454F0` | Night indigo `#09081A`, lavender text, violet `#AC92FF` |
+| **Graphite** | Monochrome line-art | Near-black, white accents |
+| **Forest** | Original ops-standards cream `#F6F4E9` / forest `#365C2C` | Charcoal-green / lime `#D5ED91` |
 
-The hero canvas pauses when off-screen or when the tab is hidden, and draws a single frame under reduced motion. Magnetic buttons and tilt only turn on for `(hover: hover) and (pointer: fine)`. `<MotionConfig reducedMotion="user">` and a global CSS rule honor `prefers-reduced-motion`.
+Mode is Light, Dark or Auto (follows the system). Every colour is a CSS variable in RGB channels (`--bg`, `--ink`, `--accent`, `--primary`, `--glow-1..3` …), so Tailwind alpha utilities work in all six combinations, and canvas drawings re-read their colours when the theme changes. Typography pairs Manrope (UI and display) with Instrument Serif italic for accent words and JetBrains Mono for labels and data.
+
+**Header.** A floating glass card: it drops in on load, narrows and shortens once the page scrolls, slides away while you scroll down and returns when you scroll up. A pill nav has a sliding hover highlight and active indicator; the card's bottom edge is the reading-progress bar. On mobile the same card expands into the menu.
+
+**Motion system.** One easing curve (`[0.16, 1, 0.3, 1]`) throughout.
+
+| Piece | Where | What it does |
+|---|---|---|
+| `IridescentOrb` | Home hero | Canvas particle sphere that breathes and follows the pointer, over a glassy morphing core |
+| `OrbitCards` + `SpinningBadge` | Home hero | Glass cards (allow / review / deny …) orbiting on a tilted ring; hover pauses |
+| `ScrollStatement` | Home | Pinned statement; words light up with scroll inside crosshairs and expanding rings |
+| `IsometricStack` | Home · What we build | Line-art isometric layers for the four foundation repos, pulling apart on scroll |
+| `GlassCubes` | Home · Principles | CSS 3D glass cubes with neon edges, floating and leaning toward the pointer |
+| `HorizontalGallery` | Home · Ecosystem | Pinned horizontal scroll of every project card (swipeable row on mobile) |
+| `PhysicsDrop` | Home · Call to action | Spheres and labelled chips drop, bounce and pile; push them with the cursor, click to pop |
+
+Also: route transitions, `Reveal` / `Stagger` on scroll, hover spotlight and conic glow borders on cards, magnetic buttons, animated counters and the marquee.
+
+**Performance and accessibility of motion.** Canvas and physics loops run only while on screen and the tab is visible, and the physics loop sleeps once the pile settles. Magnetic and tilt effects only turn on for `(hover: hover) and (pointer: fine)`. Under `prefers-reduced-motion`, the orb draws one frame, the orbit stops, the statement and gallery render without pinning, and the physics pile is computed up front and shown at rest. `<MotionConfig reducedMotion="user">` and a global CSS rule cover everything else. Prerendered HTML shows the statement text in full, and a `<noscript>` rule reveals elements that would otherwise wait for a scroll animation.
 
 **Architecture.**
 
@@ -157,7 +177,6 @@ The hero canvas pauses when off-screen or when the tab is hidden, and draws a si
 **Honesty by construction.** Following `ops-standards` ("do not use fabricated metrics", "never imply real customers or invented results"):
 
 - Stats are live API values, even when they are zero.
-- The telemetry card is labelled *Simulated*.
 - Blog posts are labelled *Example article* and claim no author or date.
 - The hero terminal shows the real output of `ops-template`'s `npm run demo`.
 
