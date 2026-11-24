@@ -1,6 +1,6 @@
-import { motion, useMotionTemplate, useMotionValue, useReducedMotion, useSpring, useTransform } from 'framer-motion';
+import { motion, useMotionTemplate, useMotionValue, useReducedMotion, useSpring, useTransform, type MotionStyle } from 'framer-motion';
 import { ArrowUpRight, Clock, GitFork, Star } from 'lucide-react';
-import type { PointerEvent, CSSProperties } from 'react';
+import type { PointerEvent } from 'react';
 import { useFinePointer } from '@/hooks/useMediaQuery';
 import { projectAccent } from '@/lib/projectIdentity';
 import { cn } from '@/lib/cn';
@@ -47,7 +47,7 @@ export function ProjectCard({ project, onOpen, className }: Props) {
       variants={staggerItem}
       layout
       className={cn('group [perspective:1000px]', className)}
-      style={{'--project-light-accent':colors.light,'--project-dark-accent':colors.dark} as CSSProperties}
+      style={{'--project-light-accent':colors.light,'--project-dark-accent':colors.dark} as MotionStyle & Record<`--${string}`, string>}
       onPointerMove={onMove}
       onPointerLeave={onLeave}
     >

@@ -1,5 +1,6 @@
 // Generated from ops-ui commit b0be9d8b5112ebfc716490a2aa607c6d31380399; sync on reviewed updates.
-export const projectAccents: Record<string,{light:string;dark:string}> = {
+type Accent = {light:string;dark:string};
+export const projectAccents: Record<string, Accent> & {universe: Accent} = {
   "universe": {
     "light": "#4338a0",
     "dark": "#b7b5ff"
@@ -77,4 +78,7 @@ export const projectAccents: Record<string,{light:string;dark:string}> = {
     "dark": "#e5c29b"
   }
 };
-export function projectAccent(name:string){return Object.hasOwn(projectAccents,name.toLowerCase())?projectAccents[name.toLowerCase()]:projectAccents.universe;}
+export function projectAccent(name:string): Accent {
+  const key = name.toLowerCase();
+  return (Object.hasOwn(projectAccents, key) ? projectAccents[key] : undefined) ?? projectAccents.universe;
+}
