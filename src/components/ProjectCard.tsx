@@ -1,7 +1,8 @@
 import { motion, useMotionTemplate, useMotionValue, useReducedMotion, useSpring, useTransform } from 'framer-motion';
 import { ArrowUpRight, Clock, GitFork, Star } from 'lucide-react';
-import type { PointerEvent } from 'react';
+import type { PointerEvent, CSSProperties } from 'react';
 import { useFinePointer } from '@/hooks/useMediaQuery';
+import { projectAccent } from '@/lib/projectIdentity';
 import { cn } from '@/lib/cn';
 import { timeAgo } from '@/lib/format';
 import { projectLanguage, projectSummary, projectTags, type Project } from '@/lib/projects';
@@ -17,6 +18,7 @@ interface Props {
 /** Repository card: lift + glow border + spotlight + subtle 3D tilt (desktop, motion allowed). */
 export function ProjectCard({ project, onOpen, className }: Props) {
   const { meta, repo } = project;
+  const colors = projectAccent(meta.name);
   const tiltEnabled = useFinePointer() && !useReducedMotion();
   const px = useMotionValue(0.5);
   const py = useMotionValue(0.5);
@@ -24,7 +26,7 @@ export function ProjectCard({ project, onOpen, className }: Props) {
   const ry = useSpring(useTransform(px, [0, 1], [-5, 5]), { stiffness: 200, damping: 20 });
   const sx = useTransform(px, (v) => `${v * 100}%`);
   const sy = useTransform(py, (v) => `${v * 100}%`);
-  const spotlight = useMotionTemplate`radial-gradient(320px circle at ${sx} ${sy}, rgb(var(--accent) / 0.09), transparent 70%)`;
+  const spotlight = useMotionTemplate`radial-gradient(320px circle at ${sx} ${sy}, color-mix(in srgb, var(--project-dark-accent) 12%, transparent), transparent 70%)`;
 
   const onMove = (e: PointerEvent<HTMLElement>) => {
     if (!tiltEnabled) return;
@@ -45,6 +47,7 @@ export function ProjectCard({ project, onOpen, className }: Props) {
       variants={staggerItem}
       layout
       className={cn('group [perspective:1000px]', className)}
+      style={{'--project-light-accent':colors.light,'--project-dark-accent':colors.dark} as CSSProperties}
       onPointerMove={onMove}
       onPointerLeave={onLeave}
     >
@@ -52,7 +55,7 @@ export function ProjectCard({ project, onOpen, className }: Props) {
         style={tiltEnabled ? { rotateX: rx, rotateY: ry, transformStyle: 'preserve-3d' } : undefined}
         whileHover={tiltEnabled ? { y: -6 } : { y: -3 }}
         transition={{ type: 'spring', stiffness: 300, damping: 24 }}
-        className="card glow-border relative flex h-full flex-col rounded-2xl p-5 transition-shadow duration-300 group-hover:shadow-glow sm:p-6"
+        className="card project-identity glow-border relative flex h-full flex-col rounded-2xl p-5 transition-shadow duration-300 group-hover:shadow-glow sm:p-6"
       >
         <motion.div aria-hidden="true" className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100" style={{ background: spotlight }} />
 

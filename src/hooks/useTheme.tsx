@@ -42,7 +42,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     const root = document.documentElement;
     root.dataset.theme = resolved;
     root.style.colorScheme = resolved;
-    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', resolved === 'dark' ? '#0b0e0a' : '#f6f4e9');
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', resolved === 'dark' ? '#171a2d' : '#f6f7ff');
   }, [resolved]);
 
   const setPreference = useCallback((p: ThemePreference) => {
