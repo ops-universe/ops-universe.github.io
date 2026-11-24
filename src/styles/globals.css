@@ -5,41 +5,39 @@
 /*
  * Design tokens. Values are RGB channels so Tailwind can apply alpha
  * (e.g. bg-accent/10). Dark is the default; [data-theme="light"] overrides.
- * The palette extends the official ops-standards design.md tokens
- * (#181D17 / #D5ED91 dark, #F6F4E9 / #365C2C light) with a deeper base and a
- * cool "signal" accent used only for telemetry and status.
+ * The organization uses its own indigo identity from ops-ui; signal colors remain semantic status accents.
  */
 @layer base {
   :root {
-    --bg: 11 14 10; /* #0b0e0a */
-    --surface: 20 25 19; /* #141913 */
-    --elevated: 28 35 27; /* #1c231b */
-    --line: 49 59 46; /* #313b2e */
-    --ink: 245 242 223; /* #F5F2DF */
-    --muted: 176 185 165; /* #b0b9a5 */
-    --accent: 213 237 145; /* #D5ED91 */
-    --accent-ink: 22 29 14; /* text on accent */
+    --bg: 23 26 45;
+    --surface: 34 38 61;
+    --elevated: 43 48 73; /* #1c231b */
+    --line: 70 75 104;
+    --ink: 241 242 255;
+    --muted: 191 197 224;
+    --accent: 183 181 255;
+    --accent-ink: 27 25 64;
     --signal: 125 226 211; /* #7de2d3 */
     --warn: 242 200 109;
     --danger: 255 140 122;
-    --grid: 213 237 145;
+    --grid: 183 181 255;
     --grid-alpha: 0.05;
     color-scheme: dark;
   }
 
   :root[data-theme='light'] {
-    --bg: 246 244 233; /* #F6F4E9 */
-    --surface: 255 253 245; /* #FFFDF5 */
-    --elevated: 239 237 223;
-    --line: 215 219 204; /* #D7DBCC */
-    --ink: 34 41 30; /* #22291E */
-    --muted: 80 89 75; /* #50594B */
-    --accent: 54 92 44; /* #365C2C */
-    --accent-ink: 246 244 233;
+    --bg: 246 247 255;
+    --surface: 255 255 255;
+    --elevated: 234 237 250;
+    --line: 216 220 239;
+    --ink: 32 36 59;
+    --muted: 82 89 116;
+    --accent: 67 56 160;
+    --accent-ink: 255 255 255;
     --signal: 24 112 103;
     --warn: 150 98 10;
     --danger: 178 52 36;
-    --grid: 54 92 44;
+    --grid: 67 56 160;
     --grid-alpha: 0.07;
     color-scheme: light;
   }
@@ -204,3 +202,6 @@
     transition-duration: 0.01ms !important;
   }
 }
+
+.project-identity { border-top: 3px solid var(--project-dark-accent); }
+:root[data-theme='light'] .project-identity { border-top-color: var(--project-light-accent); }
