@@ -23,6 +23,8 @@ export interface ProjectMeta {
   /** Where the summary came from, shown in the detail view. */
   source: string;
   featured?: boolean;
+  /** Canonical project documentation website; publish directory only after Pages checks. */
+  website?: string;
   /** Open pull request carrying the initial implementation, if any. */
   pr?: number;
 }
@@ -138,28 +140,179 @@ export const projects: ProjectMeta[] = [
     source: 'profile/README.md, CONTRIBUTING.md, SECURITY.md on main',
   },
   {
-    name: 'evalOps',
-    hasRepo: false,
-    status: 'Planned',
-    category: 'AI operations',
-    summary: 'Continuous AI evaluation and regression testing.',
-    tags: ['evaluation', 'regression', 'planned'],
-    stack: [],
-    highlights: ['Listed as planned in the ecosystem directory. No repository yet.'],
-    contribute: 'Share requirements or use cases in an issue on the .github repository.',
-    source: 'Project directory data in ops-universe.github.io PR #1',
+    "name": "evalOps",
+    "hasRepo": true,
+    "status": "Foundation",
+    "category": "AI operations",
+    "summary": "Local-first evaluation engineering for LLM applications, retrieval systems and agents.",
+    "tags": [
+      "evaluation",
+      "regression",
+      "quality-gates"
+    ],
+    "stack": [
+      "Node.js 22+",
+      "React + Vite (dashboard)"
+    ],
+    "highlights": [
+      "Versioned datasets and deterministic metrics",
+      "Suite-compatible regression comparisons and absolute gates",
+      "Offline RAG and agent trace evaluation"
+    ],
+    "contribute": "Read the source documentation and threat model; submit focused changes with synthetic evidence. Public product release remains deferred.",
+    "source": "evalOps/README.md on main",
+    "website": "https://ops-universe.github.io/evalOps/",
+    "featured": true
   },
   {
-    name: 'guardOps',
-    hasRepo: false,
-    status: 'Planned',
-    category: 'AI operations',
-    summary: 'Governed AI actions and approval policies.',
-    tags: ['governance', 'approvals', 'planned'],
-    stack: [],
-    highlights: ['Listed as planned in the ecosystem directory. No repository yet.'],
-    contribute: 'Share requirements or use cases in an issue on the .github repository.',
-    source: 'Project directory data in ops-universe.github.io PR #1',
+    "name": "guardOps",
+    "hasRepo": true,
+    "status": "Foundation",
+    "category": "AI operations",
+    "summary": "Local-first deterministic authorization and governance for AI agent tool requests.",
+    "tags": [
+      "governance",
+      "authorization",
+      "approval"
+    ],
+    "stack": [
+      "Node.js 22+",
+      "React + Vite (dashboard)"
+    ],
+    "highlights": [
+      "Deterministic policy and structured arguments",
+      "Allow, deny and simulated review lifecycle",
+      "Trusted-local audit persistence and host enforcement"
+    ],
+    "contribute": "Read the source documentation and threat model; submit focused changes with synthetic evidence. Public product release remains deferred.",
+    "source": "guardOps/README.md on main",
+    "website": "https://ops-universe.github.io/guardOps/",
+    "featured": true
+  },
+  {
+    "name": "ragOps",
+    "hasRepo": true,
+    "status": "Foundation",
+    "category": "AI operations",
+    "summary": "Offline retrieval-augmented generation engineering toolkit for inspecting retrieval, context and citations.",
+    "tags": [
+      "retrieval",
+      "grounding",
+      "citations"
+    ],
+    "stack": [
+      "Node.js 22+",
+      "React + Vite (dashboard)"
+    ],
+    "highlights": [
+      "Local ingestion, chunking and lexical retrieval",
+      "Deterministic offline embedding experiments",
+      "Access-filtered context and corpus-relative citations"
+    ],
+    "contribute": "Read the source documentation and threat model; submit focused changes with synthetic evidence. Public product release remains deferred.",
+    "source": "ragOps/README.md on main",
+    "website": "https://ops-universe.github.io/ragOps/",
+    "featured": true
+  },
+  {
+    "name": "traceOps",
+    "hasRepo": true,
+    "status": "Foundation",
+    "category": "AI operations",
+    "summary": "Local-first AI observability toolkit for tracing, metrics, storage and diagnostics.",
+    "tags": [
+      "observability",
+      "tracing",
+      "diagnostics"
+    ],
+    "stack": [
+      "Node.js 22+",
+      "React + Vite (dashboard)"
+    ],
+    "highlights": [
+      "Versioned trace and span contracts",
+      "Nested instrumentation and local metrics",
+      "Explicit retention and redacted synthetic dashboard"
+    ],
+    "contribute": "Read the source documentation and threat model; submit focused changes with synthetic evidence. Public product release remains deferred.",
+    "source": "traceOps/README.md on main",
+    "website": "https://ops-universe.github.io/traceOps/",
+    "featured": true
+  },
+  {
+    "name": "mcpOps",
+    "hasRepo": true,
+    "status": "Foundation",
+    "category": "AI operations",
+    "summary": "Offline-first Model Context Protocol inspection, governance and testing toolkit.",
+    "tags": [
+      "mcp",
+      "tools",
+      "governance"
+    ],
+    "stack": [
+      "Node.js 22+",
+      "React + Vite (dashboard)"
+    ],
+    "highlights": [
+      "Pinned protocol inspection and explicit inventory",
+      "Bounded schemas and simulated approvals",
+      "Scoped synthetic in-process SDK interoperability"
+    ],
+    "contribute": "Read the source documentation and threat model; submit focused changes with synthetic evidence. Public product release remains deferred.",
+    "source": "mcpOps/README.md on main",
+    "website": "https://ops-universe.github.io/mcpOps/",
+    "featured": true
+  },
+  {
+    "name": "workflowOps",
+    "hasRepo": true,
+    "status": "Foundation",
+    "category": "AI operations",
+    "summary": "Local-first governed workflow execution with deterministic DAGs, checkpointing and simulated effects.",
+    "tags": [
+      "workflows",
+      "checkpoints",
+      "governance"
+    ],
+    "stack": [
+      "Node.js 22+",
+      "React + Vite (dashboard)"
+    ],
+    "highlights": [
+      "Deterministic DAG validation",
+      "Bounded retries, checkpoint and conservative resume",
+      "Scoped approval and offline simulation"
+    ],
+    "contribute": "Read the source documentation and threat model; submit focused changes with synthetic evidence. Public product release remains deferred.",
+    "source": "workflowOps/README.md on main",
+    "website": "https://ops-universe.github.io/workflowOps/",
+    "featured": true
+  },
+  {
+    "name": "dataOps",
+    "hasRepo": true,
+    "status": "Foundation",
+    "category": "AI operations",
+    "summary": "Local read-only dataset profiling, quality, governance and regression analysis.",
+    "tags": [
+      "data-quality",
+      "profiling",
+      "regression"
+    ],
+    "stack": [
+      "Node.js 22+",
+      "React + Vite (dashboard)"
+    ],
+    "highlights": [
+      "Bounded CSV, JSON and JSONL ingestion",
+      "Deterministic quality contracts and profiling",
+      "Split overlap, fingerprints and regression comparison"
+    ],
+    "contribute": "Read the source documentation and threat model; submit focused changes with synthetic evidence. Public product release remains deferred.",
+    "source": "dataOps/README.md on main",
+    "website": "https://ops-universe.github.io/dataOps/",
+    "featured": true
   },
   {
     name: 'deployOps',
