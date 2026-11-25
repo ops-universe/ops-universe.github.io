@@ -203,7 +203,7 @@ export function ProjectModal({ project, onClose }: { project: Project | null; on
                         </a>
                       )}
                       {(project.meta.website || repo.homepage) && (
-                        <a href={project.meta.website || repo.homepage} target="_blank" rel="noreferrer noopener" className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border border-line px-4 text-sm text-ink hover:border-accent/60">
+                        <a href={project.meta.website || repo.homepage || undefined} target="_blank" rel="noreferrer noopener" className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border border-line px-4 text-sm text-ink hover:border-accent/60">
                           <ExternalLink className="h-4 w-4" aria-hidden="true" /> {project.meta.website ? 'Product website' : 'Homepage'}
                         </a>
                       )}
