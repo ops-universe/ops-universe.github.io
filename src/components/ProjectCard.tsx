@@ -101,6 +101,11 @@ export function ProjectCard({ project, onOpen, className }: Props) {
           ) : (
             <span className="font-mono">No repository yet</span>
           )}
+          {meta.website && (
+            <a href={meta.website} className="relative z-10 inline-flex items-center gap-1 text-accent hover:underline" aria-label={`Open ${meta.name} website`}>
+              Website <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
+            </a>
+          )}
           <span className="ml-auto inline-flex items-center gap-1 text-accent opacity-80 transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100">
             Details <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
           </span>
